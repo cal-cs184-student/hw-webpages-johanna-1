@@ -51,19 +51,19 @@
 		Give a high-level overview of what you implemented in this homework. Think about what you've built as a whole. Share your thoughts on what interesting things you've learned from completing the homework.
 
 		<h2>Task 1: Drawing Single-Color Triangles</h2>
-		- Walk through how you rasterize triangles in your own words.
+		- Walk through how you rasterize triangles in your own words.<br>
 			The function rasterize_triangles takes in parameters of three points and a color. Firstly, we check every pixel in our bounds --
 			note that here we use the center of the pixel as sample points for each pixel. A triangle consists of three vertices/points, and 
-			let's represent these points with the parameters given: 
-			A = (x0, y0)
-			B = (x1, y1)
-			C = (x2, y2)
-			I want to test a point P = (px, py) for whether it is in the triangle and is to be colored. 
+			let's represent these points with the parameters given: <br>
+			A = (x0, y0)<br>
+			B = (x1, y1)<br>
+			C = (x2, y2)<br>
+			I want to test a point P = (px, py) for whether it is in the triangle and is to be colored.<br>
 			I compute the 2D crossproduct of a triangle edge (say, A,) and a vertex (say, p0) to the unknown point P, simply using the common equation.
 			Calculating the cross products then tells me which side of AB (or whichever edge) P is on. If the cross product is >0, P is on one side, if <0,
 			P is on the other side. If =0, P is on the line. If P is on the SAME side of all AB, BC, and CA, then it is inside the triangle. 
-			This takes into account both clockwise and counter-clockwise vertex winding.  
-			
+			This takes into account both clockwise and counter-clockwise vertex winding.<br>  
+			<br>
 		- Explain how your algorithm is no worse than one that checks each sample within the bounding box of the triangle. The bounding box of the triangle is defined as the smallest rectangle that can be drawn whilst ensuring that the entire triangle is within it.
 
 			
