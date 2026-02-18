@@ -59,17 +59,24 @@
 			B = (x1, y1)<br>
 			C = (x2, y2)<br>
 			I want to test a point P = (px, py) for whether it is in the triangle and is to be colored.<br>
-			I compute the 2D crossproduct of a triangle edge (say, A,) and a vertex (say, p0) to the unknown point P, simply using the common equation.
+			I compute the 2D crossproduct of a triangle edge (say, AB,) and a vertex (say, A) to the unknown point P, simply using the common equation.
 			Calculating the cross products then tells me which side of AB (or whichever edge) P is on. If the cross product is >0, P is on one side, if <0,
 			P is on the other side. If =0, P is on the line. If P is on the SAME side of all AB, BC, and CA, then it is inside the triangle. 
 			This takes into account both clockwise and counter-clockwise vertex winding.<br>  
 			<br>
-		- Explain how your algorithm is no worse than one that checks each sample within the bounding box of the triangle. The bounding box of the triangle is defined as the smallest rectangle that can be drawn whilst ensuring that the entire triangle is within it.
-
+		- Explain how your algorithm is no worse than one that checks each sample within the bounding box of the triangle. <br>
+<br>
+			My xmin, xmax is the horizontal range that I must check (using given vertices of the triangle), and my ymin, ymax is my vertical range that I must check. 
+			This just is the bounding box of the triangle. I am checking within that rectangle, so it is of course, not worse. <br>
+<br>
+		- Show a png screenshot of basic/test4.svg with the default viewing parameters and with the pixel inspector centered on an interesting part of the scene.<br>
+<br>
+		- Extra credit
+		    I doubt this counts, but I did OpenGL edge rules before I realized that it is not necessary. I hashed it out and rewrote the simpler version, so the code is still there.
+			(Though I also hashed a large part of that out, too, after doing Task 2.) 
 			
 			
 			
-			TEST if this works
 
 		<p>Here is an example 2x2 gridlike structure using an HTML table. Each <b>tr</b> is a row and each <b>td</b> is a column in that row. You might find this useful for framing and showing your result images in an organized fashion.</p>
 		<div style="display: flex; flex-direction: column; align-items: center;">
@@ -98,7 +105,34 @@
 		</div>
 		
 		<h2>Task 2: Antialiasing by Supersampling</h2>
-		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+		- Walk through your supersampling algorithm and data structures.<br> 
+				Why is supersampling useful? 
+				What modifications did you make to the rasterization pipeline in the process?
+
+			The rasterization pipeline is like this:
+			Triangles (rasterize triangle) are drawn into the sample_buffer, and resolve_to_framebuffer converts that into rgb_framebuffer_target.
+
+			Modifications I made are:<br>
+				In <b>rasterize_triangle</b>, I had to take into account the super sampled pixels, ie a sample rate of 4 now giving each pixel 2x2 grid.<br>
+				So aside from iterating over the bounding box, I also iterated every pixel individually using the sqrt of the sample rate,
+				splitting what used to be the center of the pixel sample points into however many sample points now required for the different sample rates.
+				The sample_buffer then used the calculated index (that takes into account supersampling) to fill in the sub-pixels with colors.
+			<br><br>
+				Next, I modified <b>fill_pixel()</b> with a similar logic. It should iterate over the supersampled sub-pixels, too, with sample_buffer once 
+				again using a modified index. 
+				In <b>set_sample_rate()</b> and <b>set_framebuffer_target()</b>, I just made sure that sample_buffer was resized with (width * height * sample_rate)
+				instead of only (width * height) since, once again, this modification is needed for the extra grid within each pixel. 
+				In <b>resolve_to_framebuffer()</b>, we modified it from the original by averaging out all sub-pixels (instead of only able to read on pixel/sub-pixel)
+				
+			<br><br>
+				Supersampling is useful because it "smooths" out edges with gradiented colors by sampling more color data within each pixel. This removes
+				jaggies, and just overall increases the quality of graphics. 
+
+			<br><br>
+
+
+
+	
 
 		<h2>Task 3: Transforms</h2>
 		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
