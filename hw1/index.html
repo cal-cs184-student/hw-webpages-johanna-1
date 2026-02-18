@@ -32,11 +32,11 @@
 
 		<br>
 
-		Link to webpage: (TODO) <a href="https://cal-cs184-student.github.io/hw-webpages-johanna-1/hw1/index.html">link</a>
+		Link to webpage: <a href="https://cal-cs184-student.github.io/hw-webpages-johanna-1/hw1/index.html">cal-cs184-student.github.io/hw-webpages-johanna-1/hw1/index.html</a>
 		
 		<br>
 
-		Link to GitHub repository: (TODO) <a href="https://github.com/cal-cs184-student/hw1-rasterizer-johanna">link</a>
+		Link to GitHub repository: <a href="https://github.com/cal-cs184-student/hw1-rasterizer-johanna">github.com/cal-cs184-student/hw1-rasterizer-johanna</a>
 
 		<figure>
 			<img src="lion.jpg" alt="Lion" style="width:50%"/>
@@ -51,7 +51,25 @@
 		Give a high-level overview of what you implemented in this homework. Think about what you've built as a whole. Share your thoughts on what interesting things you've learned from completing the homework.
 
 		<h2>Task 1: Drawing Single-Color Triangles</h2>
-		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+		- Walk through how you rasterize triangles in your own words.
+			The function rasterize_triangles takes in parameters of three points and a color. Firstly, we check every pixel in our bounds --
+			note that here we use the center of the pixel as sample points for each pixel. A triangle consists of three vertices/points, and 
+			let's represent these points with the parameters given: 
+			A = (x0, y0)
+			B = (x1, y1)
+			C = (x2, y2)
+			I want to test a point P = (px, py) for whether it is in the triangle and is to be colored. 
+			I compute the 2D crossproduct of a triangle edge (say, A,) and a vertex (say, p0) to the unknown point P, simply using the common equation.
+			Calculating the cross products then tells me which side of AB (or whichever edge) P is on. If the cross product is >0, P is on one side, if <0,
+			P is on the other side. If =0, P is on the line. If P is on the SAME side of all AB, BC, and CA, then it is inside the triangle. 
+			This takes into account both clockwise and counter-clockwise vertex winding.  
+			
+		- Explain how your algorithm is no worse than one that checks each sample within the bounding box of the triangle. The bounding box of the triangle is defined as the smallest rectangle that can be drawn whilst ensuring that the entire triangle is within it.
+
+			
+			
+			
+			TEST if this works
 
 		<p>Here is an example 2x2 gridlike structure using an HTML table. Each <b>tr</b> is a row and each <b>td</b> is a column in that row. You might find this useful for framing and showing your result images in an organized fashion.</p>
 		<div style="display: flex; flex-direction: column; align-items: center;">
