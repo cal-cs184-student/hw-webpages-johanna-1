@@ -195,17 +195,17 @@
 				  <figcaption>Nearest sampling, 1 sample per pixel.</figcaption>
 				</td>
 				<td style="text-align: center;">
-				  <img src="2.jpg" width="400px"/>
+				  <img src="2.png" width="400px"/>
 				  <figcaption>Bilinear sampling, 1 sample per pixel.</figcaption>
 				</td>
 			  </tr>
 			  <tr>
 				<td style="text-align: center;">
-				  <img src="3.jpg" width="400px"/>
+				  <img src="3.png" width="400px"/>
 				  <figcaption>Nearest sampling, 16 samples per pixel.</figcaption>
 				</td>
 				<td style="text-align: center;">
-				  <img src="4.jpg" width="400px"/>
+				  <img src="4.png" width="400px"/>
 				  <figcaption>Bilinear sampling, 16 samples per pixel.</figcaption>
 				</td>
 			  </tr>
@@ -219,12 +219,59 @@
 <br><br>
 			The nearest sampling at one sample per pixel is very pixelated, with the bilinear sampling at still 1 sample per pixel
 				being smoother. At 16 samples per pixel, nearest sampling is significantly more blocky, and bilinear sampling is way more smooth and 
-				is a better representation of what the image looks like. 
+				is a better representation of what the image looks like. The reasons for this is similar to what was detailed above,
+				bilinear sampling is a weighted average of 4 texels, so it has more blended colors/textures that come out more natural 
+				than nearest sampling, which is not an average and instead is just returning a single texel's color. 
+				<br><br>
 				
 		<h2>Task 6: "Level Sampling" with mipmaps for texture mapping</h2>
-		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+				<br><br>
+		- Explain level sampling in your own words and describe how you implemented it for texture mapping.<br><br>
+				level sampling is just which mipmap level we choose from.<br>
+				Level 0 is the full resolution texture, level 2 downsamples, level 4 downsamples again, and so on and so forth.<br>
+				If we only have a small space on screen, we don't want really high resolution texture to be fitted into that small area, so we should sample a higher level. 
+				We implement it for texture mapping in get_level to determine which level; this involves scaling by texture size and then using that to determine
+				how large that change is, then using log2 to take into account that mipmap levels half resolution.
+				
+ - Describe the tradeoffs between speed, memory usage, and antialiasing power between the three various techniques.<br><br>
+				Level 0 is good for magnification since it's full resolution. But when displayed on smaller object, it causes jaggies and aliasing. 
+				Requires more memory due to its higher quality, and also slower. 
+				L_NEAREST only samples the level nearest to our computed mipmap level. Less detailed than level 0. (relatively) Faster, less memory in the same way.
+				Less jaggies when shrunk. <br>
+				L_LINEAR does blending between two levels, instead of only taking one like L_NEAREST, so it is the smoothest with the least jaggies when shrunk.
+				Less memory, faster.<br><br>
+				
+				
+- Using a png file you find yourself, show us four versions of the image<br><br>
+				<div style="display: flex; flex-direction: column; align-items: center;">
+			<table style="width: 100%; text-align: center; border-collapse: collapse;">
+			  <tr>
+				<td style="text-align: center;">
+				  <img src="L_ZERO and P_NEAREST.png" width="400px"/>
+				  <figcaption>Nearest sampling, 1 sample per pixel.</figcaption>
+				</td>
+				<td style="text-align: center;">
+				  <img src="L_ZERO and P_LINEAR.png" width="400px"/>
+				  <figcaption>Bilinear sampling, 1 sample per pixel.</figcaption>
+				</td>
+			  </tr>
+			  <tr>
+				<td style="text-align: center;">
+				  <img src="L_NEAREST and P_NEAREST.png" width="400px"/>
+				  <figcaption>Nearest sampling, 16 samples per pixel.</figcaption>
+				</td>
+				<td style="text-align: center;">
+				  <img src="L_NEAREST and P_LINEAR.png" width="400px"/>
+				  <figcaption>Bilinear sampling, 16 samples per pixel.</figcaption>
+				</td>
+			  </tr>
+			</table>
+		</div>
 
-		<h2>(Optional) Task 7: Extra Credit - Draw Something Creative!</h2>
+
+				
+
+<!--		<h2>(Optional) Task 7: Extra Credit - Draw Something Creative!</h2>
 		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
 
 		<h2>Additional Notes (please remove)</h2>
@@ -239,4 +286,4 @@
 		</ul>
 		</div>
 	</body>
-</html>
+</html> -->
