@@ -146,7 +146,19 @@
 				<br>
 		- Explain barycentric coordinates in your own words and use an image to aid you in your explanation.<br>
 				<br>
-				Given any point P=(x,y) inside a triangle, it can be written as P = αA + βB + γC (using the same A B C for each vertex notation from earlier) 
+				Given any point P=(x,y) inside a triangle, it can be written as P = αA + βB + γC 
+				(using the same A B C for each vertex notation from earlier).<br>
+				And α + β + γ = 1.<br>
+				The pixel is inside the triangle if all three coordinates are non-negative.<br>
+				Barycentric coordinates are weights for each vertex at a pixel, aka they tell you
+				how much each vertex contributes to the pixel (how much each pixel "belong" to a vertex). 
+				Using these coordinates, the cross product uv in our code
+				represents the texture coordinate for that pixel. A weighted sum of each vertex's color.
+				For example, a pixel near the center of triangle would have a more blended color.
+
+				<img src="lion.jpg" alt="triangle" style="width:50%"/>
+		<figcaption>A visual representation using a triangle.</figcaption>
+				
 
 				<br><br>
 		- Show a png screenshot of svg/basic/test7.svg<br>
@@ -189,6 +201,10 @@
 			</table>
 		</div>
 				
+<br><br>
+
+		- Comment on the relative differences. 
+				Discuss when there will be a large difference between the two methods and why.
 <br><br>
 				
 		<h2>Task 6: "Level Sampling" with mipmaps for texture mapping</h2>
